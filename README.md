@@ -11,7 +11,7 @@ SYNOPSIS
     easy-fcrepo-fixity-checker \
        [-f <fcrepo-server>] \
        [-u <fcrepo-user> \
-       -p <fcrepo-password>] \
+        -p <fcrepo-password>] \
        [-n <namespace-list>] \
        [-d <datastream-id-list>] \
        [-l <log-message-format-string>] \
