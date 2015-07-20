@@ -26,13 +26,13 @@ so that Fedora recalculates the datastream's checksum and compares it to the one
 ARGUMENTS
 ---------
 
-* ``--fcrepo-server``, ``-f`` --
-* ``--fcrepo-user``, ``-u`` --
-* ``--fcrepo-password``, ``-p`` --
-* ``--namespace-list``, ``-n`` --
-* ``--datastream-id-list``, ``-d`` --
-* ``--log-message-format-string``, ``-l`` --
-* ``--milliseconds-between-calls``, ``-m`` --
+* ``--fcrepo-server``, ``-f`` -- URL of the Fedora Commons Repository Server
+* ``--fcrepo-user``, ``-u`` -- Fedora user to connect with
+* ``--fcrepo-password``, ``-p`` -- Fedora user's password
+* ``--namespace-list``, ``-n`` -- list of digital object namespaces to check
+* ``--datastream-id-list``, ``-d`` -- list of datastream IDs to check
+* ``--log-message-format-string``, ``-l`` -- format string for the message to log
+* ``--milliseconds-between-calls``, ``-m`` -- milliseconds to wait before doing the next call to Fedora
 
 
 INSTALLATION AND CONFIGURATION
