@@ -3,17 +3,19 @@
 easy-fcrepo-fixity-checker
 ==========================
 
+Check the fixity of a Fedora Commons Repository's datastreams.
+
 SYNOPSIS
 --------
 
     easy-fcrepo-fixity-checker \
-       -f <fcrepo-server> \
-       -u <fcrepo-user> \
-       -p <fcrepo-password> \
-       -n <namespace-list> \
-       -d <datastream-id-list> \
-       -l <log-message-format-string> \
-       -m <milliseconds-between-calls>
+       [-f <fcrepo-server>] \
+       [-u <fcrepo-user> \
+       -p <fcrepo-password>] \
+       [-n <namespace-list>] \
+       [-d <datastream-id-list>] \
+       [-l <log-message-format-string>] \
+       [-m <milliseconds-between-calls>]
 
 
 DESCRIPTION
