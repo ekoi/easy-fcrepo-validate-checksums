@@ -21,7 +21,8 @@ DESCRIPTION
 
 Service that checks the fixity of datastreams in a Fedora Commons 3.x repository. It does this by continuously retrieving
 the metadata for the datastreams to be checked with the Fedora [getDatastream] method, specifying ``validateChecksum = true``,
-so that Fedora recalculates the datastream's checksum and compares it to the one stored in the digital object. The 
+so that Fedora recalculates the datastream's checksum and compares it to the one stored in the digital object. This action
+can optionally be logged in the digital object's audit log.
 
 ARGUMENTS
 ---------
