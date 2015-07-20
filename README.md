@@ -6,20 +6,34 @@ easy-fcrepo-fixity-checker
 SYNOPSIS
 --------
 
-    easy-fcrepo-fixity-checker
+    easy-fcrepo-fixity-checker \
+       -f <fcrepo-server> \
+       -u <fcrepo-user> \
+       -p <fcrepo-password> \
+       -n <namespace-list> \
+       -d <datastream-id-list> \
+       -l <log-message-format-string> \
+       -m <milliseconds-between-calls>
 
 
 DESCRIPTION
 -----------
 
 Service that checks the fixity of datastreams in a Fedora Commons 3.x repository. It does this by continuously retrieving
-the metadata for the datastreams to be checked with Fedora [getDatastream] method, specifying ``validateChecksum = true``,
-so that Fedora recalculates the datastream's checksum and compares it to the one stored in the digital object. 
+the metadata for the datastreams to be checked with the Fedora [getDatastream] method, specifying ``validateChecksum = true``,
+so that Fedora recalculates the datastream's checksum and compares it to the one stored in the digital object. The 
 
 ARGUMENTS
 ---------
 
-None
+* ``--fcrepo-server``, ``-f`` --
+* ``--fcrepo-user``, ``-u`` --
+* ``--fcrepo-password``, ``-p`` --
+* ``--namespace-list``, ``-n`` --
+* ``--datastream-id-list``, ``-d`` --
+* ``--log-message-format-string``, ``-l`` --
+* ``--milliseconds-between-calls``, ``-m`` --
+
 
 INSTALLATION AND CONFIGURATION
 ------------------------------
