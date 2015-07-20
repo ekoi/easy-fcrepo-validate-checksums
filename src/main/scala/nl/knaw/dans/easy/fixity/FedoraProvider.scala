@@ -18,8 +18,13 @@
 
 package nl.knaw.dans.easy.fixity
 
+import scala.util.Try
+
+
 trait FedoraProvider {
 
+  def iterator(namespace: String): Iterator[String]
   
+  def validateChecksum(doId: String, dsId: String): Try[Boolean]
   
 }
