@@ -32,54 +32,24 @@ case class FedoraProviderImpl(server: URL, user: String, password: String) exten
   val client = new FedoraClient(creds)
   FedoraRequest.setDefaultClient(client)
 
-  case class PidIterator(namespace: String) extends Iterator[String] {
-    var hasNextBatch = true
-    var token: String = null
-    var batch: Seq[String] = null
-    var i = 0
-
-    override def hasNext: Boolean =
-      nextFromBatch match {
-        case None => nextBatch match {
-          case None => false
-          case Some(b) => batch = b; true
-        }
-        case Some(_) => true
-      }
-
-    override def next() = {
-      hasNext match {
-        case true => nextFromBatch.get
-        case false => throw new NoSuchElementException
-      }
-    }
-
-    def nextFromBatch: Option[String] =
-      if (i >= batch.size) None
-      else Some(batch(i))
-
-    def nextBatch: Option[Seq[String]] = 
-      if (hasNextBatch) {
-        var search = findObjects().pid().query(s"pid~$namespace:*")
-        if (token != null && !token.isEmpty) search = search.sessionToken(token)
-        val response = search.execute()
-        hasNextBatch = response.hasNext
-        token = response.getToken
-        if (response.getPids.isEmpty()) None
-        else Some(response.getPids)
-      } else None
-  }
-
   def iterator(namespace: String): Iterator[String] = new PidIterator(namespace)
 
-  def validateChecksum(doId: String, dsId: String): Try[Boolean] = {
+  def validateChecksum(pid: String, dsId: String): Try[Boolean] =
     Try {
-      getDatastream(doId, dsId)
+      getDatastream(pid, dsId)
         .format("xml")
-        .validateChecksum(true).execute()
+        .validateChecksum(true)
+        .execute()
         .getDatastreamProfile
         .getDsChecksumValid
         .toBoolean
     }
-  }
+
+  def logMessage(pid: String, dsId: String, msg: String): Try[Unit] =
+    Try {
+      modifyDatastream(pid, dsId)
+        .ignoreContent(true)
+        .logMessage(msg)
+        .execute()
+    }
 }

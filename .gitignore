@@ -21,3 +21,5 @@ temp/
 /.settings
 /.classpath
 /.cache
+*.sc
+.worksheet/
