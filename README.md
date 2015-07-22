@@ -12,8 +12,8 @@ SYNOPSIS
        [-f <fcrepo-server>] \
        [-u <fcrepo-user> \
         -p <fcrepo-password> ] \
-       [-l] \
-       [-m <milliseconds-between-calls>] \
+       [-l][-s] \
+       [-t <time-between-calls>] \
 
 DESCRIPTION
 -----------
@@ -30,7 +30,8 @@ ARGUMENTS
 * ``--fcrepo-user``, ``-u`` -- Fedora user to connect with
 * ``--fcrepo-password``, ``-p`` -- Fedora user's password
 * ``--log-results``, ``-l`` -- whether to log the result of the validation in the digital object's audit log
-* ``--milliseconds-between-calls``, ``-m`` -- milliseconds to wait before doing the next call to Fedora
+* ``--skip-external-datastreams``, ``-s`` -- whether to skip datastreams with control group ``R`` and ``E``.
+* ``--time-between-calls``, ``-t`` -- time in milliseconds to wait before doing the next call to Fedora
 
 
 INSTALLATION AND CONFIGURATION
