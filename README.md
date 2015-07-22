@@ -3,6 +3,8 @@
 easy-fcrepo-fixity-checker
 ==========================
 
+Check the fixity of a Fedora Commons Repository's datastreams.
+
 SYNOPSIS
 --------
 
