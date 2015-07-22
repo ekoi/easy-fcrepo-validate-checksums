@@ -18,10 +18,13 @@ SYNOPSIS
 DESCRIPTION
 -----------
 
-Service that checks the fixity of datastreams in a Fedora Commons 3.x repository. It does this by continuously retrieving
-the metadata for the datastreams to be checked with the Fedora [getDatastream] method, specifying ``validateChecksum = true``,
-so that Fedora recalculates the datastream's checksum and compares it to the one stored in the digital object. This action
-can optionally be logged in the digital object's audit log.
+Command that checks the fixity of datastreams in a Fedora Commons 3.x repository. It iterates over all the digital objects
+in the namespaces configured in ``validation.properties`` and checks the datastreams configured for each namespace (see
+section [Configuration](#configuration) below). The validation is performed using the Fedora [getDatastream] method,
+specifying ``validateChecksum = true``. Successful validation can optionally be recorded in Fedora's audit log. Since the
+action of recording a log message causes Fedora to update the datastream's checksum, an invalid checksum will *not* be
+recorded. It will however be written to the error log. It is of course advisable to configure the smtp appender of the 
+logger configuration to send an e-mail to responsible staff to warn them about the checksum mismatch.
 
 ARGUMENTS
 ---------
@@ -57,8 +60,6 @@ The format of this file is as follows:
       
 in which ``<namespace-id>`` is the namespace to validate and ``datastream-id-list`` is a comma separated list of datastreams
 to check in that namespace.
-
-
 
 
 BUILDING FROM SOURCE
