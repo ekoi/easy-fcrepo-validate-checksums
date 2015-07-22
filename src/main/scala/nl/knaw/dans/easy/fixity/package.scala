@@ -16,28 +16,10 @@
  * ****************************************************************************
  */
 
-package nl.knaw.dans.easy.fixity
+package nl.knaw.dans.easy
 
-import org.apache.commons.configuration.PropertiesConfiguration
 import java.io.File
-import scala.collection.mutable.ListBuffer
 
-object CLI {
-  def main(args: Array[String]): Unit = {
-    val conf = new Conf(args)
-    val fedora = new FedoraProviderImpl(conf.fedora(), conf.user(), conf.password())
-    val fc = new FixityClient(fedora, getNamespaceSpecs, conf.logResult(), conf.delay())
-    fc.run()
-  }
-
-  private def getNamespaceSpecs: List[NamespaceSpec] = {
-    val props = new PropertiesConfiguration(new File(homedir, "cfg/validation.properties"))
-    var nss = new ListBuffer[NamespaceSpec]
-    val iter = props.getKeys
-    while (iter.hasNext) {
-      val ns = iter.next()
-      nss.append(NamespaceSpec(ns, props.getStringArray(ns).toList))
-    }
-    nss.toList
-  }
+package object fixity {
+  val homedir = new File(System.getenv("EASY_FCREPO_FIXITY_CHECKER_HOME"))
 }

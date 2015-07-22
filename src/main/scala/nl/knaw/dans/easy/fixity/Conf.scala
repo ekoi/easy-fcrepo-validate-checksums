@@ -21,8 +21,11 @@ package nl.knaw.dans.easy.fixity
 import org.rogach.scallop.ScallopConf
 import java.io.File
 import java.net.URL
+import org.rogach.scallop.Subcommand
+import org.apache.commons.configuration.PropertiesConfiguration
 
 class Conf(args: Seq[String]) extends ScallopConf(args) {
+  val props = new PropertiesConfiguration(new File(homedir, "cfg/application.properties"))
   printedName = "easy-fcrepo-fixity-checker"
   version(s"$printedName ${Version()}")
   banner("""
@@ -32,17 +35,13 @@ class Conf(args: Seq[String]) extends ScallopConf(args) {
             |              [-f <fcrepo-server>] \
             |              [-u <fcrepo-user> \
             |               -p <fcrepo-password>] \
-            |              [-n <namespace-list>] \
-            |              [-d <datastream-id-list>] \
-            |              [-l <log-message-format-string>] \
-            |              [-m <milliseconds-between-calls>]
+            |              [-l] \
+            |              [-t <time-between-calls>]
             | Options:
             |""".stripMargin)
-  val fedora = ???
-  val user = ???
-  val password = ???
-  val namespaces = ???
-  val datastreamIds = ???
-  val logFormat = ???
-  val delay = ???
+  val fedora = opt[URL]("fcrepo-server", default = Some(new URL(props.getString("default.fcrepo-server"))))
+  val user = opt[String]("fcrepo-user", default = Some(props.getString("default.fcrepo-user")))
+  val password = opt[String]("fcrepo-password", default = Some(props.getString("default.fcrepo-password")))
+  val logResult = opt[Boolean]("log-result", default = Some(props.getBoolean("default.log-result")))
+  val delay = opt[Int]("time-between-calls", default = Some(props.getInt("default.time-between-calls")))
 } 

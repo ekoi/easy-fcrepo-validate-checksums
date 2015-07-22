@@ -7,14 +7,11 @@ SYNOPSIS
 --------
 
     easy-fcrepo-fixity-checker \
-       -f <fcrepo-server> \
-       -u <fcrepo-user> \
-       -p <fcrepo-password> \
-       -n <namespace-list> \
-       -d <datastream-id-list> \
-       -l <log-message-format-string> \
-       -m <milliseconds-between-calls>
-
+       [-f <fcrepo-server>] \
+       [-u <fcrepo-user> \
+        -p <fcrepo-password> ] \
+       [-l] \
+       [-m <milliseconds-between-calls>] \
 
 DESCRIPTION
 -----------
@@ -30,9 +27,7 @@ ARGUMENTS
 * ``--fcrepo-server``, ``-f`` -- URL of the Fedora Commons Repository Server
 * ``--fcrepo-user``, ``-u`` -- Fedora user to connect with
 * ``--fcrepo-password``, ``-p`` -- Fedora user's password
-* ``--namespace-list``, ``-n`` -- list of digital object namespaces to check
-* ``--datastream-id-list``, ``-d`` -- list of datastream IDs to check
-* ``--log-message-format-string``, ``-l`` -- format string for the message to log
+* ``--log-results``, ``-l`` -- whether to log the result of the validation in the digital object's audit log
 * ``--milliseconds-between-calls``, ``-m`` -- milliseconds to wait before doing the next call to Fedora
 
 
@@ -48,9 +43,19 @@ INSTALLATION AND CONFIGURATION
 
 ### Configuration
 
-General configuration settings can be set in ``$EASY_FCREPO_FIXITY_CHECKER_HOME/cfg/appliation.properties`` 
+General configuration settings can be set in ``$EASY_FCREPO_FIXITY_CHECKER_HOME/cfg/application.properties`` 
 and logging can be configured in ``$EASY_FCREPO_FIXITY_CHEKCER_HOME/cfg/logback.xml``. The available settings are 
 explained in comments in aforementioned files.
+
+The datastreams that must be validated must be configured in the ``$EASY_FCREPO_FIXITY_CHECKER_HOME/cfg/validation.properties``.
+The format of this file is as follows:
+
+      <namespace-id>=<datastream-id-list>
+      
+in which ``<namespace-id>`` is the namespace to validate and ``datastream-id-list`` is a comma separated list of datastreams
+to check in that namespace.
+
+
 
 
 BUILDING FROM SOURCE

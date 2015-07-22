@@ -27,7 +27,7 @@ import com.yourmediashelf.fedora.client.FedoraClient
 import scala.collection.JavaConversions._
 import com.yourmediashelf.fedora.client.request.FindObjects
 
-case class FedoraProviderImpl(server: URL, user: String, password: String) extends FedoraProvider {
+class FedoraProviderImpl(server: URL, user: String, password: String) extends FedoraProvider {
   val creds = new FedoraCredentials(server, user, password)
   val client = new FedoraClient(creds)
   FedoraRequest.setDefaultClient(client)

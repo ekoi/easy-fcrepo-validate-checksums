@@ -29,10 +29,10 @@ case class NamespaceSpec(name: String, dsIds: List[String])
 /**
  * Implements the application logic
  */
-case class FixityClient(
+class FixityClient(
   fedora: FedoraProvider,
   namespaces: List[NamespaceSpec],
-  logFormat: String,
+  logResult: Boolean,
   delay: Int) {
 
   val log = LoggerFactory.getLogger(getClass)
@@ -44,18 +44,26 @@ case class FixityClient(
     val iter = fedora.iterator(namespace.name)
     while (iter.hasNext)
       validateDigitalObject(iter.next(), namespace)
+
   }
 
   def validateDigitalObject(pid: String, namespace: NamespaceSpec): Unit = {
     namespace.dsIds.map(validateDatastream(pid))
   }
 
-  def validateDatastream(pid: String)(dsId: String): Unit =
+  def validateDatastream(pid: String)(dsId: String): Unit = {
+    if (delay > 0) Thread.sleep(delay)
     fedora.validateChecksum(pid, dsId) match {
       case Success(valid) =>
-        if (valid) log.info(s"Checksum valid. pid = $pid, dsId = $dsId")
-        else log.error(s"Checksum INVALID. pid = $pid, dsId = $dsId")
-      case Failure(e) => log.warn("Could not validate checksum. pid = $pid, dsId = $dsId")
+        if (valid) {
+          log.info(s"Checksum OK for $pid/$dsId")
+          if (logResult) fedora.logMessage(pid, dsId, "Validated checksum: OK")
+        } /*
+         * We do NOT log a message in Fedora here, as this would update the checksum and make it valid
+         * again. Instead, we rely on the error logging configuration to notify the responsible staff.
+         */ else log.error(s"Checksum INVALIED for $pid/$dsId")
+      case Failure(e) => log.warn("COULD NOT VALIDATE checksum for $pid/$dsId.")
     }
+  }
 
 }
