@@ -25,6 +25,8 @@ trait FedoraProvider {
 
   def iterator(namespace: String): Iterator[String]
   
+  def getControlGroup(pid: String, dsId: String): Try[Char]
+  
   def validateChecksum(doId: String, dsId: String): Try[Boolean]
   
   def logMessage(pid: String, dsId: String, msg: String): Try[Unit]

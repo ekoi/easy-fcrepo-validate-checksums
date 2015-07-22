@@ -32,10 +32,19 @@ class FedoraProviderImpl(server: URL, user: String, password: String) extends Fe
   val client = new FedoraClient(creds)
   FedoraRequest.setDefaultClient(client)
 
-  def iterator(namespace: String): Iterator[String] = new PidIterator(namespace)
-
-  def validateChecksum(pid: String, dsId: String): Try[Boolean] =
+  override def iterator(namespace: String): Iterator[String] = new PidIterator(namespace)
+  
+  override def getControlGroup(pid: String, dsId: String): Try[Char] =
     Try {
+      getDatastream(pid, dsId)
+        .format("xml")
+        .execute()
+        .getDatastreamProfile
+        .getDsControlGroup.charAt(0)
+  }
+
+  override def validateChecksum(pid: String, dsId: String): Try[Boolean] =
+  Try {
       getDatastream(pid, dsId)
         .format("xml")
         .validateChecksum(true)
@@ -45,7 +54,7 @@ class FedoraProviderImpl(server: URL, user: String, password: String) extends Fe
         .toBoolean
     }
 
-  def logMessage(pid: String, dsId: String, msg: String): Try[Unit] =
+  override def logMessage(pid: String, dsId: String, msg: String): Try[Unit] =
     Try {
       modifyDatastream(pid, dsId)
         .ignoreContent(true)

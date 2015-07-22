@@ -35,7 +35,7 @@ class Conf(args: Seq[String]) extends ScallopConf(args) {
             |              [-f <fcrepo-server>] \
             |              [-u <fcrepo-user> \
             |               -p <fcrepo-password>] \
-            |              [-l] \
+            |              [-l][-s] \
             |              [-t <time-between-calls>]
             | Options:
             |""".stripMargin)
@@ -43,5 +43,6 @@ class Conf(args: Seq[String]) extends ScallopConf(args) {
   val user = opt[String]("fcrepo-user", default = Some(props.getString("default.fcrepo-user")))
   val password = opt[String]("fcrepo-password", default = Some(props.getString("default.fcrepo-password")))
   val logResult = opt[Boolean]("log-result", default = Some(props.getBoolean("default.log-result")))
+  val skipExternalDatastreams = opt[Boolean]("skip-external-datastreams", default = Some(props.getBoolean("default.skip-external-datastreams")))
   val delay = opt[Int]("time-between-calls", default = Some(props.getInt("default.time-between-calls")))
 } 

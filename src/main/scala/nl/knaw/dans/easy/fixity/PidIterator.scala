@@ -40,7 +40,7 @@ case class PidIterator(namespace: String) extends Iterator[String] {
     hasNext match {
       case true => 
         val n = nextFromBatch.get
-        i = i + 1
+        i += 1
         n
       case false => throw new NoSuchElementException
     }
