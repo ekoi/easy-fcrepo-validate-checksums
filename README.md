@@ -1,14 +1,14 @@
 *Note: this project is in pre-alpha state, so below instructions may not work completely yet*
 
-easy-fcrepo-fixity-checker
-==========================
+easy-fcrepo-validate-checkums
+=============================
 
-Check the fixity of a Fedora Commons Repository's datastreams.
+Validate the checksums of a Fedora Commons Repository's datastreams.
 
 SYNOPSIS
 --------
 
-    easy-fcrepo-fixity-checker \
+    easy-fcrepo-validate-checkums \
        [-f <fcrepo-server>] \
        [-u <fcrepo-user> \
         -p <fcrepo-password> ] \
