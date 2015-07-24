@@ -16,7 +16,7 @@
  * ****************************************************************************
  */
 
-package nl.knaw.dans.easy.fixity
+package nl.knaw.dans.easy.valchecksum
 
 import org.apache.commons.configuration.PropertiesConfiguration
 import java.io.File

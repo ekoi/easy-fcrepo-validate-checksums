@@ -16,7 +16,7 @@
  * ****************************************************************************
  */
 
-package nl.knaw.dans.easy.fixity
+package nl.knaw.dans.easy.valchecksum
 
 import com.yourmediashelf.fedora.client.FedoraClient._
 import scala.collection.JavaConversions._

@@ -14,7 +14,7 @@
   * limitations under the License.
   ******************************************************************************/
 
-package nl.knaw.dans.easy.fixity
+package nl.knaw.dans.easy.valchecksum
 
 object Version {
   def apply(): String = {

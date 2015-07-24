@@ -16,7 +16,7 @@
  * ****************************************************************************
  */
 
-package nl.knaw.dans.easy.fixity
+package nl.knaw.dans.easy.valchecksum
 
 import org.rogach.scallop.ScallopConf
 import java.io.File
@@ -26,16 +26,16 @@ import org.apache.commons.configuration.PropertiesConfiguration
 
 class Conf(args: Seq[String]) extends ScallopConf(args) {
   val props = new PropertiesConfiguration(new File(homedir, "cfg/application.properties"))
-  printedName = "easy-fcrepo-fixity-checker"
+  printedName = "easy-fcrepo-validate-checksums"
   version(s"$printedName ${Version()}")
-  banner("""
+  banner(s"""
             | Check the fixity of a Fedora Commons Repository's datastreams.
             |
-            | Usage: easy-fcrepo-fixity-checker 
-            |              [-f <fcrepo-server>] \
-            |              [-u <fcrepo-user> \
-            |               -p <fcrepo-password>] \
-            |              [-l][-s] \
+            | Usage: $printedName
+            |              [-f <fcrepo-server>] \\
+            |              [-u <fcrepo-user> \\
+            |               -p <fcrepo-password>] \\
+            |              [-l][-s] \\
             |              [-t <time-between-calls>]
             | Options:
             |""".stripMargin)

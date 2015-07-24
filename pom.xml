@@ -8,16 +8,16 @@
         <version>1.12</version>
     </parent>
     <groupId>nl.knaw.dans.easy</groupId>
-    <artifactId>easy-fcrepo-fixity-checker</artifactId>
+    <artifactId>easy-fcrepo-validate-checksums</artifactId>
     <version>1.x-SNAPSHOT</version>
-    <name>EASY Fixity Checker</name>
+    <name>EASY Fedora Commons Repo Validate Checksums</name>
     <description>Service to check the fixity of Fedora Commons datastreams</description>
-    <url>https://github.com/DANS-KNAW/easy-fcrepo-fixity-checker</url>
+    <url>https://github.com/DANS-KNAW/easy-fcrepo-validate-checksums</url>
     <properties>
-        <main-class>nl.knaw.dans.easy.fixity.CLI</main-class>
+        <main-class>nl.knaw.dans.easy.valchecksum.CLI</main-class>
     </properties>
     <scm>
-        <developerConnection>scm:git:https://github.com/DANS-KNAW/easy-fcrepo-fixity-checker</developerConnection>
+        <developerConnection>scm:git:https://github.com/DANS-KNAW/easy-fcrepo-fcrepo-validate-checksums</developerConnection>
         <tag>HEAD</tag>
     </scm>
     <dependencies>
@@ -59,7 +59,7 @@
     </dependencies>
     <build>
         <sourceDirectory>src/main/scala</sourceDirectory>
-        <finalName>easy-fcrepo-fixity-checker</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

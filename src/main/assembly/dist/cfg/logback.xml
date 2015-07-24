@@ -6,9 +6,9 @@
         </encoder>
     </appender>
     <appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
-        <smtpHost>{{ easy_fcrepo_fixity_checker_mailhost }}</smtpHost>
-        <to>{{ easy_fcrepo_fixity_checker_mailto }}</to>
-        <from>{{ easy_fcrepo_fixity_checker_mailfrom }}</from>
+        <smtpHost>{{ easy_fcrepo_validate_checksums_mailhost }}</smtpHost>
+        <to>{{ easy_fcrepo_validate_checksums_mailto }}</to>
+        <from>{{ easy_fcrepo_validate_checksums_mailfrom }}</from>
         <subject>FIXITY CHECKER ERROR: %logger{20} - %m</subject>
         <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>%date %-5level %logger{35} - %message%n</pattern>
@@ -17,5 +17,5 @@
     <root level="error">
         <appender-ref ref="CONSOLE" />
     </root>
-    <logger name="nl.knaw.dans.easy.fixity" level="info" />
+    <logger name="nl.knaw.dans.easy.valchecksum" level="info" />
 </configuration>

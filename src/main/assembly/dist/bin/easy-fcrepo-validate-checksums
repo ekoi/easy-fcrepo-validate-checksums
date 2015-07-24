@@ -1,0 +1,5 @@
+#!/bin/sh
+
+java -Dlogback.configurationFile=$EASY_FCREPO_VALIDATE_CHECKSUMS_HOME/cfg/logback.xml \
+     -Dconfig.file=$EASY_FCREPO_VALIDATE_CHECKSUMS_HOME/cfg/application.conf \
+     -jar $EASY_FCREPO_VALIDATE_CHECKSUMS_HOME/bin/easy-fcrepo-validate-checksums.jar $@

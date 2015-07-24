@@ -16,19 +16,10 @@
  * ****************************************************************************
  */
 
-package nl.knaw.dans.easy.fixity
+package nl.knaw.dans.easy
 
-import scala.util.Try
+import java.io.File
 
-
-trait FedoraProvider {
-
-  def iterator(namespace: String): Iterator[String]
-  
-  def getControlGroup(pid: String, dsId: String): Try[Char]
-  
-  def validateChecksum(doId: String, dsId: String): Try[Boolean]
-  
-  def logMessage(pid: String, dsId: String, msg: String): Try[Unit]
-  
+package object valchecksum {
+  val homedir = new File(System.getenv("EASY_FCREPO_VALIDATE_CHECKSUMS_HOME"))
 }

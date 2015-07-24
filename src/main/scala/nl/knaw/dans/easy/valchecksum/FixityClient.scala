@@ -16,7 +16,7 @@
  * ****************************************************************************
  */
 
-package nl.knaw.dans.easy.fixity
+package nl.knaw.dans.easy.valchecksum
 
 import java.net.URL
 import com.yourmediashelf.fedora.client.FedoraCredentials
