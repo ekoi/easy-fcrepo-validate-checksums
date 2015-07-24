@@ -1,5 +1,3 @@
-*Note: this project is in pre-alpha state, so below instructions may not work completely yet*
-
 easy-fcrepo-validate-checkums
 =============================
 
@@ -18,9 +16,9 @@ SYNOPSIS
 DESCRIPTION
 -----------
 
-Command that checks the fixity of datastreams in a Fedora Commons 3.x repository. It iterates over all the digital objects
-in the namespaces configured in ``validation.properties`` and checks the datastreams configured for each namespace (see
-section [Configuration](#configuration) below). The validation is performed using the Fedora [getDatastream] method,
+Command that validates the checksums of datastreams in a Fedora Commons 3.x repository. It iterates over all the digital 
+objects in the namespaces configured in ``validation.properties`` and checks the datastreams configured for each namespace 
+(see section [Configuration](#configuration) below). The validation is performed using the Fedora [getDatastream] method,
 specifying ``validateChecksum = true``. Successful validation can optionally be recorded in Fedora's audit log. Since the
 action of recording a log message causes Fedora to update the datastream's checksum, an invalid checksum will *not* be
 recorded. It will however be written to the error log. It is of course advisable to configure the smtp appender of the 
@@ -43,7 +41,7 @@ INSTALLATION AND CONFIGURATION
 ### Installation steps:
 
 1. Unzip the tarball to a directory of your choice, e.g. /opt/
-2. A new directory called easy-fcrepo-fixity-checker-<version> will be created
+2. A new directory called easy-fcrepo-validate-checksums-<version> will be created
 3. Create an environment variabele ``EASY_FCREPO_FIXITY_CHECKER_HOME`` with the directory from step 2 as its value
 
 
@@ -79,8 +77,8 @@ Steps:
         mvn install
 2. Clone and build this project
 
-        git clone https://github.com/DANS-KNAW/easy-fcrepo-fixity-checker.git
-        cd easy-fcrepo-fixity-checker
+        git clone https://github.com/DANS-KNAW/easy-fcrepo-validate-checksums.git
+        cd easy-fcrepo-validate-checksums
         mvn install
         
 [getDatastream]: https://wiki.duraspace.org/display/FEDORA38/REST+API#RESTAPI-getDatastream
