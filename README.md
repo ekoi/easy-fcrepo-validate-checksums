@@ -42,16 +42,16 @@ INSTALLATION AND CONFIGURATION
 
 1. Unzip the tarball to a directory of your choice, e.g. /opt/
 2. A new directory called easy-fcrepo-validate-checksums-<version> will be created
-3. Create an environment variabele ``EASY_FCREPO_FIXITY_CHECKER_HOME`` with the directory from step 2 as its value
+3. Create an environment variabele ``EASY_FCREPO_VALIDATE_CHECKSUMS_HOME`` with the directory from step 2 as its value
 
 
 ### Configuration
 
-General configuration settings can be set in ``$EASY_FCREPO_FIXITY_CHECKER_HOME/cfg/application.properties`` 
-and logging can be configured in ``$EASY_FCREPO_FIXITY_CHEKCER_HOME/cfg/logback.xml``. The available settings are 
+General configuration settings can be set in ``$EASY_FCREPO_VALIDATE_CHECKSUMS_HOME/cfg/application.properties`` 
+and logging can be configured in ``EASY_FCREPO_VALIDATE_CHECKSUMS_HOME/cfg/logback.xml``. The available settings are 
 explained in comments in aforementioned files.
 
-The datastreams that must be validated must be configured in the ``$EASY_FCREPO_FIXITY_CHECKER_HOME/cfg/validation.properties``.
+The datastreams that must be validated must be configured in the ``EASY_FCREPO_VALIDATE_CHECKSUMS_HOME/cfg/validation.properties``.
 The format of this file is as follows:
 
       <namespace-id>=<datastream-id-list>
