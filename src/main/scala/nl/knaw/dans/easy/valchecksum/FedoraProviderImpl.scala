@@ -18,14 +18,13 @@
 
 package nl.knaw.dans.easy.valchecksum
 
-import scala.util.Try
 import java.net.URL
-import com.yourmediashelf.fedora.client.FedoraCredentials
+
 import com.yourmediashelf.fedora.client.FedoraClient._
+import com.yourmediashelf.fedora.client.{FedoraClient, FedoraCredentials}
 import com.yourmediashelf.fedora.client.request.FedoraRequest
-import com.yourmediashelf.fedora.client.FedoraClient
-import scala.collection.JavaConversions._
-import com.yourmediashelf.fedora.client.request.FindObjects
+
+import scala.util.Try
 
 class FedoraProviderImpl(server: URL, user: String, password: String) extends FedoraProvider {
   val creds = new FedoraCredentials(server, user, password)

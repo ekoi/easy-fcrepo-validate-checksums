@@ -51,8 +51,9 @@ case class PidIterator(namespace: String) extends Iterator[String] {
 
   def nextBatch: Option[Seq[String]] =
     if (hasNextBatch) {
+      i = 0
       var search = findObjects().pid().query(s"pid~$namespace:*")
-      if (token != null && !token.isEmpty) search = search.sessionToken(token)
+      if (token != null && token.nonEmpty) search = search.sessionToken(token)
       val response = search.execute()
       hasNextBatch = response.hasNext
       token = response.getToken
