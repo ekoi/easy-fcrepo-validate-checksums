@@ -18,14 +18,13 @@
 
 package nl.knaw.dans.easy.valchecksum
 
-import java.net.URL
-import com.yourmediashelf.fedora.client.FedoraCredentials
-import scala.util.Success
+import com.yourmediashelf.fedora.client.FedoraClientException
 import org.slf4j.LoggerFactory
-import scala.util.Failure
-import scala.util.Try
 
-case class NamespaceSpec(name: String, dsIds: List[String])
+import scala.util.{Failure, Success, Try}
+
+case class DatastreamSpec(dsId: String, isOptional: Boolean)
+case class NamespaceSpec(name: String, dsIds: List[DatastreamSpec])
 
 /**
  * Implements the application logic.
@@ -50,11 +49,15 @@ class FixityClient(
   def validateDigitalObject(pid: String, namespace: NamespaceSpec): Unit =
     namespace.dsIds.foreach(validateDatastream(pid))
 
-  def validateDatastream(pid: String)(dsId: String): Unit =
-    mustSkipStream(pid, dsId) match {
-      case Success(true) => log.info(s"Skipping external datastream $pid/$dsId")
-      case Success(false) => validateDatastreamWithDelay(pid, dsId)
-      case Failure(e) => log.error(s"Could not get control group of $pid/$dsId: ${e.getMessage}")
+  def validateDatastream(pid: String)(dsSpec: DatastreamSpec): Unit =
+    mustSkipStream(pid, dsSpec.dsId) match {
+      case Success(true) => log.info(s"Skipping external datastream $pid/${dsSpec.dsId}")
+      case Success(false) => validateDatastreamWithDelay(pid, dsSpec.dsId)
+      case Failure(e) => e match {
+        case e: FedoraClientException =>
+          if(dsSpec.isOptional && e.getStatus == 404) log.info(s"Skipping optional and absent datastream $pid/${dsSpec.dsId}")
+          else log.error(s"Could not retrieve datastream $pid/${dsSpec.dsId}: ${e.getMessage}")
+      }
     }
 
   def mustSkipStream(pid: String, dsId: String): Try[Boolean] =
@@ -75,7 +78,7 @@ class FixityClient(
            * again. Instead, we rely on the error logging configuration to notify the responsible staff.
            */
           log.error(s"Checksum INVALID for $pid/$dsId")
-        case Failure(e) => log.warn(s"COULD NOT VALIDATE checksum for $pid/$dsId: ${e.getMessage}")
-      }
+        case Failure(e) => log.error(s"COULD NOT VALIDATE checksum for $pid/$dsId: ${e.getMessage}")
+     }
     }
 }

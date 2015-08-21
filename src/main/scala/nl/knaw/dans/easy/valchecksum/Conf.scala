@@ -18,18 +18,18 @@
 
 package nl.knaw.dans.easy.valchecksum
 
-import org.rogach.scallop.ScallopConf
 import java.io.File
 import java.net.URL
-import org.rogach.scallop.Subcommand
+
 import org.apache.commons.configuration.PropertiesConfiguration
+import org.rogach.scallop.ScallopConf
 
 class Conf(args: Seq[String]) extends ScallopConf(args) {
   val props = new PropertiesConfiguration(new File(homedir, "cfg/application.properties"))
   printedName = "easy-fcrepo-validate-checksums"
   version(s"$printedName ${Version()}")
   banner(s"""
-            | Check the fixity of a Fedora Commons Repository's datastreams.
+            | Validate the checksums of a Fedora Commons Repository's datastreams.
             |
             | Usage: $printedName
             |              [-f <fcrepo-server>] \\
