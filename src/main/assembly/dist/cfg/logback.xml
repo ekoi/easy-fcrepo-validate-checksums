@@ -17,5 +17,7 @@
     <root level="error">
         <appender-ref ref="CONSOLE" />
     </root>
-    <logger name="nl.knaw.dans.easy.valchecksum" level="info" />
+    <logger name="nl.knaw.dans.easy.valchecksum" level="info" >
+        <appender-ref ref="EMAIL" />
+    </logger>
 </configuration>

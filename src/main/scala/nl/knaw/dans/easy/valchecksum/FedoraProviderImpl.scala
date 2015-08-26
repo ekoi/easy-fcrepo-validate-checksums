@@ -21,8 +21,8 @@ package nl.knaw.dans.easy.valchecksum
 import java.net.URL
 
 import com.yourmediashelf.fedora.client.FedoraClient._
-import com.yourmediashelf.fedora.client.{FedoraClient, FedoraCredentials}
 import com.yourmediashelf.fedora.client.request.FedoraRequest
+import com.yourmediashelf.fedora.client.{FedoraClient, FedoraCredentials}
 
 import scala.util.Try
 
@@ -32,7 +32,7 @@ class FedoraProviderImpl(server: URL, user: String, password: String) extends Fe
   FedoraRequest.setDefaultClient(client)
 
   override def iterator(namespace: String): Iterator[String] = new PidIterator(namespace)
-  
+
   override def getControlGroup(pid: String, dsId: String): Try[Char] =
     Try {
       getDatastream(pid, dsId)

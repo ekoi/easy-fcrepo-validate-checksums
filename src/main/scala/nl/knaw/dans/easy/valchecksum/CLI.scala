@@ -18,9 +18,10 @@
 
 package nl.knaw.dans.easy.valchecksum
 
-import org.apache.commons.configuration.PropertiesConfiguration
 import java.io.File
-import scala.collection.mutable.ListBuffer
+
+import org.apache.commons.configuration.PropertiesConfiguration
+
 import scala.collection.JavaConversions._
 
 object CLI {
@@ -33,7 +34,10 @@ object CLI {
 
   private def getNamespaceSpecs: List[NamespaceSpec] = {
     val props = new PropertiesConfiguration(new File(homedir, "cfg/validation.properties"))
-    props.getKeys.map(ns =>
-      NamespaceSpec(ns, props.getStringArray(ns).toList)).toList
+    props.getKeys.map(ns => NamespaceSpec(ns, props.getStringArray(ns).toList.map(getDatastreamSpec))).toList
   }
+
+  private def getDatastreamSpec(s: String): DatastreamSpec =
+    if(s.endsWith("*")) DatastreamSpec(s.dropRight(1), true)
+    else  DatastreamSpec(s, false)
 }
