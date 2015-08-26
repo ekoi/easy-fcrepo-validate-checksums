@@ -38,6 +38,6 @@ object CLI {
   }
 
   private def getDatastreamSpec(s: String): DatastreamSpec =
-    if(s.endsWith("*")) DatastreamSpec(s.take(s.length - 1), true)
+    if(s.endsWith("*")) DatastreamSpec(s.dropRight(1), true)
     else  DatastreamSpec(s, false)
 }
