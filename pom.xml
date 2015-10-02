@@ -8,7 +8,7 @@
     </parent>
     <groupId>nl.knaw.dans.easy</groupId>
     <artifactId>easy-fcrepo-validate-checksums</artifactId>
-    <version>1.x-SNAPSHOT</version>
+    <version>1.0-beta-4</version>
     <name>EASY Fedora Commons Repo Validate Checksums</name>
     <description>Service to check the fixity of Fedora Commons datastreams</description>
     <url>https://github.com/DANS-KNAW/easy-fcrepo-validate-checksums</url>
@@ -17,7 +17,7 @@
     </properties>
     <scm>
         <developerConnection>scm:git:https://github.com/DANS-KNAW/${project.artifactId}</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v1.0-beta-4</tag>
     </scm>
     <dependencies>
         <dependency>
