@@ -21,5 +21,5 @@ package nl.knaw.dans.easy
 import java.io.File
 
 package object valchecksum {
-  val homedir = new File(System.getenv("EASY_FCREPO_VALIDATE_CHECKSUMS_HOME"))
+  val homedir = new File(System.getProperty("app.home"))
 }
