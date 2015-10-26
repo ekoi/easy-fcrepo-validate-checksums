@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-java -Dlogback.configurationFile=$EASY_FCREPO_VALIDATE_CHECKSUMS_HOME/cfg/logback.xml \
-     -jar $EASY_FCREPO_VALIDATE_CHECKSUMS_HOME/bin/easy-fcrepo-validate-checksums.jar $@
+BINPATH=`readlink -f $0`
+APPHOME=`dirname \`dirname $BINPATH \``
+
+java -Dlogback.configurationFile=$APPHOME/cfg/logback.xml \
+     -Dapp.home=$APPHOME \
+     -jar $APPHOME/bin/easy-fcrepo-validate-checksums.jar $@
