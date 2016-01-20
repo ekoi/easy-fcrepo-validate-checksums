@@ -1,5 +1,6 @@
 easy-fcrepo-validate-checkums
 =============================
+[![Build Status](https://travis-ci.org/DANS-KNAW/easy-fcrepo-validate-checkums.png?branch=master)](https://travis-ci.org/DANS-KNAW/easy-fcrepo-validate-checkums)
 
 Validate the checksums of a Fedora Commons Repository's datastreams.
 
