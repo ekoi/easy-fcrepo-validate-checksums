@@ -36,10 +36,10 @@ class Conf(args: Seq[String]) extends ScallopConf(args) {
             |              [-t <time-between-calls>]
             | Options:
             |""".stripMargin)
-  val fedora = opt[URL]("fcrepo-server", default = Some(new URL(props.getString("default.fcrepo-server"))))
-  val user = opt[String]("fcrepo-user", default = Some(props.getString("default.fcrepo-user")))
-  val password = opt[String]("fcrepo-password", default = Some(props.getString("default.fcrepo-password")))
-  val logResult = opt[Boolean]("log-result", default = Some(props.getBoolean("default.log-result")))
-  val skipExternalDatastreams = opt[Boolean]("skip-external-datastreams", default = Some(props.getBoolean("default.skip-external-datastreams")))
-  val delay = opt[Int]("time-between-calls", default = Some(props.getInt("default.time-between-calls")))
+  val fedora = opt[URL]("fcrepo-server", short = 'f', default = Some(new URL(props.getString("default.fcrepo-server"))))
+  val user = opt[String]("fcrepo-user", short = 'u', default = Some(props.getString("default.fcrepo-user")))
+  val password = opt[String]("fcrepo-password", short = 'p', default = Some(props.getString("default.fcrepo-password")))
+  val logResult = opt[Boolean]("log-result", short = 'l', default = Some(props.getBoolean("default.log-result")))
+  val skipExternalDatastreams = opt[Boolean]("skip-external-datastreams", short = 's', default = Some(props.getBoolean("default.skip-external-datastreams")))
+  val delay = opt[Int]("time-between-calls", short = 't', default = Some(props.getInt("default.time-between-calls")))
 } 
