@@ -65,17 +65,22 @@ class FixityClient(
   def validateDatastreamWithDelay(pid: String, dsId: String): Unit =
     {
       if (delay > 0) Thread.sleep(delay)
-      fedora.validateChecksum(pid, dsId) match {
-        case Success(true) =>
-          log.info(s"Checksum OK for $pid/$dsId")
-          if (logResult) fedora.logMessage(pid, dsId, "Validated checksum: OK")
-        case Success(false) =>
-          /*
-           * We do NOT log a message in Fedora here, as this would update the checksum and make it valid
-           * again. Instead, we rely on the error logging configuration to notify the responsible staff.
-           */
-          log.error(s"Checksum INVALID for $pid/$dsId")
-        case Failure(e) => log.error(s"COULD NOT VALIDATE checksum for $pid/$dsId: ${e.getMessage}")
-     }
+      fedora.getChecksumType(pid, dsId) match {
+        case Success("DISABLED") => log.error(s"Checksum NOT set for $pid/$dsId")
+        case Success(checksumType) =>
+          fedora.validateChecksum(pid, dsId) match {
+            case Success(true) =>
+              log.info(s"Checksum ($checksumType) OK for $pid/$dsId")
+              if (logResult) fedora.logMessage(pid, dsId, "Validated checksum: OK")
+            case Success(false) =>
+              /*
+               * We do NOT log a message in Fedora here, as this would update the checksum and make it valid
+               * again. Instead, we rely on the error logging configuration to notify the responsible staff.
+               */
+              log.error(s"Checksum INVALID for $pid/$dsId")
+            case Failure(e) => log.error(s"COULD NOT VALIDATE checksum for $pid/$dsId: ${e.getMessage}")
+          }
+        case Failure(e) => log.error(s"COULD NOT GET checksum type for $pid/$dsId: ${e.getMessage}")
+      }
     }
 }

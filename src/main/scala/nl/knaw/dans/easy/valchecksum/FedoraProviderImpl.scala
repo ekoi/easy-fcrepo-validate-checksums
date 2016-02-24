@@ -30,6 +30,15 @@ class FedoraProviderImpl(server: URL, user: String, password: String) extends Fe
 
   override def iterator(namespace: String): Iterator[String] = new PidIterator(namespace)
 
+  override def getChecksumType(pid: String, dsId: String): Try[String] =
+    Try {
+      getDatastream(pid, dsId)
+        .format("xml")
+        .execute()
+        .getDatastreamProfile
+        .getDsChecksumType
+    }
+
   override def getControlGroup(pid: String, dsId: String): Try[Char] =
     Try {
       getDatastream(pid, dsId)
