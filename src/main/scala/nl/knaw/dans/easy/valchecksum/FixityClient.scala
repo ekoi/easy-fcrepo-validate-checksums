@@ -15,23 +15,27 @@
  */
 package nl.knaw.dans.easy.valchecksum
 
+import com.yourmediashelf.fedora.client.FedoraClient._
 import com.yourmediashelf.fedora.client.FedoraClientException
 import org.slf4j.LoggerFactory
 
 import scala.util.{Failure, Success, Try}
+import scala.annotation.tailrec
+import scala.collection.JavaConverters._
 
 case class DatastreamSpec(dsId: String, isOptional: Boolean)
 case class NamespaceSpec(name: String, dsIds: List[DatastreamSpec])
 
 /**
- * Implements the application logic.
- */
+  * Implements the application logic.
+  */
 class FixityClient(
-  fedora: FedoraProvider,
-  namespaces: List[NamespaceSpec],
-  logResult: Boolean,
-  skipExternalDatastreams: Boolean,
-  delay: Int) {
+                    fedora: FedoraProvider,
+                    namespaces: List[NamespaceSpec],
+                    logResult: Boolean,
+                    skipExternalDatastreams: Boolean,
+                    delay: Int,
+                    batchSize: Int = 100) {
 
   val log = LoggerFactory.getLogger(getClass)
 
@@ -39,9 +43,27 @@ class FixityClient(
     namespaces.foreach(validateNamespace)
 
   def validateNamespace(namespace: NamespaceSpec): Unit =
-    fedora
-      .iterator(namespace.name)
-      .foreach(validateDigitalObject(_, namespace))
+    processObjectsFromNamespaceQuery(namespace)
+
+  @tailrec
+  private def processObjectsFromNamespaceQuery(namespace: NamespaceSpec, token: Option[String] = None): Unit = {
+    val query = s"pid~${namespace.name}:*"
+    val objectsQuery = findObjects().maxResults(batchSize).pid.query(query)
+    val objectsResponse = token match {
+      case None =>
+        log.info(s"Start with namespace query: $query")
+        objectsQuery.execute
+      case Some(t) =>
+        objectsQuery.sessionToken(t).execute
+    }
+    validateDigitalObjects (objectsResponse.getPids.asScala.toSeq, namespace)
+    if (objectsResponse.hasNext) processObjectsFromNamespaceQuery(namespace, Some(objectsResponse.getToken))
+    else log.info(s"Finished with namespace query: $query")
+  }
+
+  def validateDigitalObjects(objects: Seq[String], namespace: NamespaceSpec): Unit = {
+    objects.foreach(validateDigitalObject(_, namespace))
+  }
 
   def validateDigitalObject(pid: String, namespace: NamespaceSpec): Unit =
     namespace.dsIds.foreach(validateDatastream(pid))
