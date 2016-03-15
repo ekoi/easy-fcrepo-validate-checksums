@@ -45,20 +45,23 @@ class FixityClient(
   def validateNamespace(namespace: NamespaceSpec): Unit =
     processObjectsFromNamespaceQuery(namespace)
 
-  @tailrec
-  private def processObjectsFromNamespaceQuery(namespace: NamespaceSpec, token: Option[String] = None): Unit = {
-    val query = s"pid~${namespace.name}:*"
-    val objectsQuery = findObjects().maxResults(batchSize).pid.query(query)
-    val objectsResponse = token match {
-      case None =>
-        log.info(s"Start with namespace query: $query")
-        objectsQuery.execute
-      case Some(t) =>
-        objectsQuery.sessionToken(t).execute
+  def processObjectsFromNamespaceQuery(namespace: NamespaceSpec): Unit = {
+
+    @tailrec
+    def processObjectsFromNamespaceQueryRecursive(namespace: NamespaceSpec, token: Option[String] = None): Unit = {
+      val query = s"pid~${namespace.name}:*"
+      val objectsQuery = findObjects().maxResults(batchSize).pid.query(query)
+      val objectsResponse = token.map(t => objectsQuery.sessionToken(t).execute())
+        .getOrElse {
+            log.info(s"Start with namespace query: $query")
+            objectsQuery.execute
+        }
+
+      validateDigitalObjects(objectsResponse.getPids.asScala.toSeq, namespace)
+      if (objectsResponse.hasNext) processObjectsFromNamespaceQueryRecursive(namespace, Some(objectsResponse.getToken))
+      else log.info(s"Finished with namespace query: $query")
     }
-    validateDigitalObjects (objectsResponse.getPids.asScala.toSeq, namespace)
-    if (objectsResponse.hasNext) processObjectsFromNamespaceQuery(namespace, Some(objectsResponse.getToken))
-    else log.info(s"Finished with namespace query: $query")
+    processObjectsFromNamespaceQueryRecursive(namespace)
   }
 
   def validateDigitalObjects(objects: Seq[String], namespace: NamespaceSpec): Unit = {
