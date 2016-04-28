@@ -20,8 +20,6 @@ import scala.util.Try
 
 trait FedoraProvider {
 
-  def iterator(namespace: String): Iterator[String]
-
   def getChecksumType(pid: String, dsId: String): Try[String]
 
   def getControlGroup(pid: String, dsId: String): Try[Char]

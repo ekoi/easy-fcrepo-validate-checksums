@@ -28,8 +28,6 @@ class FedoraProviderImpl(server: URL, user: String, password: String) extends Fe
   val client = new FedoraClient(creds)
   FedoraRequest.setDefaultClient(client)
 
-  override def iterator(namespace: String): Iterator[String] = new PidIterator(namespace)
-
   override def getChecksumType(pid: String, dsId: String): Try[String] =
     Try {
       getDatastream(pid, dsId)
