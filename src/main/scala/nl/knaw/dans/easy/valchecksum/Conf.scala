@@ -22,6 +22,10 @@ import org.apache.commons.configuration.PropertiesConfiguration
 import org.rogach.scallop.ScallopConf
 
 class Conf(args: Seq[String]) extends ScallopConf(args) {
+
+  appendDefaultToDescription = true
+  editBuilder(_.setHelpWidth(110))
+
   val props = new PropertiesConfiguration(new File(homedir, "cfg/application.properties"))
   printedName = "easy-fcrepo-validate-checksums"
   version(s"$printedName ${Version()}")
@@ -42,4 +46,6 @@ class Conf(args: Seq[String]) extends ScallopConf(args) {
   val logResult = opt[Boolean]("log-result", short = 'l', default = Some(props.getBoolean("default.log-result")))
   val skipExternalDatastreams = opt[Boolean]("skip-external-datastreams", short = 's', default = Some(props.getBoolean("default.skip-external-datastreams")))
   val delay = opt[Int]("time-between-calls", short = 't', default = Some(props.getInt("default.time-between-calls")))
+
+  verify()
 } 
