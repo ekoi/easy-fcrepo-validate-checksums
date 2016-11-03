@@ -4,6 +4,7 @@ easy-fcrepo-validate-checkums
 
 Validate the checksums of a Fedora Commons Repository's datastreams.
 
+
 SYNOPSIS
 --------
 
@@ -13,6 +14,7 @@ SYNOPSIS
         -p <fcrepo-password> ] \
        [-l][-s] \
        [-t <time-between-calls>] \
+
 
 DESCRIPTION
 -----------
@@ -25,15 +27,18 @@ action of recording a log message causes Fedora to update the datastream's check
 recorded. It will however be written to the error log. It is of course advisable to configure the smtp appender of the 
 logger configuration to send an e-mail to responsible staff to warn them about the checksum mismatch.
 
+
 ARGUMENTS
 ---------
 
-* ``--fcrepo-server``, ``-f`` -- URL of the Fedora Commons Repository Server
-* ``--fcrepo-user``, ``-u`` -- Fedora user to connect with
-* ``--fcrepo-password``, ``-p`` -- Fedora user's password
-* ``--log-results``, ``-l`` -- whether to log the result of the validation in the digital object's audit log
-* ``--skip-external-datastreams``, ``-s`` -- whether to skip datastreams with control group ``R`` and ``E``.
-* ``--time-between-calls``, ``-t`` -- time in milliseconds to wait before doing the next call to Fedora
+    -p, --fcrepo-password  <arg>       (default = fedoraAdmin)
+    -f, --fcrepo-server  <arg>         (default = http://localhost:8080/fedora)
+    -u, --fcrepo-user  <arg>           (default = fedoraAdmin)
+    -l, --log-result
+    -s, --skip-external-datastreams
+    -t, --time-between-calls  <arg>    (default = 0)
+        --help                        Show help message
+        --version                     Show version of this program
 
 
 INSTALLATION AND CONFIGURATION
